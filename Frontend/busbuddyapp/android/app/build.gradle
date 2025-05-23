@@ -1,0 +1,66 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services'  // ✅ Required for Firebase
+
+}
+def localProps = new Properties()
+def propsFile  = rootProject.file("local.properties")
+if (propsFile.exists()) {
+    propsFile.withReader("UTF-8") { reader ->
+        localProps.load(reader)
+    }
+} else {
+    println("⚠️  local.properties not found; Maps key will be empty")
+}
+
+def flutterVersionCode = localProps.getProperty("flutter.versionCode","1").toInteger()
+def flutterVersionName = localProps.getProperty("flutter.versionName","1.0")
+
+android {
+     namespace = "com.example.busbuddyapp"
+     compileSdk = flutter.compileSdkVersion
+     ndkVersion = flutter.ndkVersion
+     compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+     }
+
+     kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+        // Must be a String, and match the Java target above
+        jvmTarget = "1.8"
+     }
+     defaultConfig {
+
+         applicationId = "com.example.busbuddyapp"
+         minSdk        = flutter.minSdkVersion
+         targetSdk     = flutter.targetSdkVersion
+         versionCode   = flutter.versionCode
+         versionName   = flutter.versionName
+
+         manifestPlaceholders = [
+            GOOGLE_MAPS_API_KEY: localProps.getProperty("GOOGLE_MAPS_API_KEY",""),
+            applicationName    : "io.flutter.app.FlutterApplication"
+         ]
+     }
+
+     buildTypes {
+         release {
+             signingConfig = signingConfigs.debug
+         }
+     }
+ }
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:33.12.0')
+    implementation 'com.google.firebase:firebase-messaging'
+}

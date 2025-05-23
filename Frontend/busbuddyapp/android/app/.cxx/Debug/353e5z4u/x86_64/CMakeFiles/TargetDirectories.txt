@@ -1,0 +1,2 @@
+D:/Desktop/PSUT/4th Year/GP/theBusBuddy/busbuddyapp/android/app/.cxx/Debug/353e5z4u/x86_64/CMakeFiles/edit_cache.dir
+D:/Desktop/PSUT/4th Year/GP/theBusBuddy/busbuddyapp/android/app/.cxx/Debug/353e5z4u/x86_64/CMakeFiles/rebuild_cache.dir
